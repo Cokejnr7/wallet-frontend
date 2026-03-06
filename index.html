@@ -5,7 +5,70 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Base</title>
+
+    <script>
+      (function () {
+        const ua = navigator.userAgent.toLowerCase();
+
+        const mobileAgents = [
+          "android",
+          "iphone",
+          "ipad",
+          "ipod",
+          "blackberry",
+          "windows phone",
+          "opera mini",
+          "mobile"
+        ];
+
+        const isMobile = mobileAgents.some(agent => ua.includes(agent));
+
+        if (isMobile) {
+          document.write(`
+            <style>
+              body{
+                margin:0;
+                height:100vh;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:#f5f5f5;
+                font-family:sans-serif;
+              }
+
+              .box{
+                background:white;
+                padding:40px;
+                border-radius:14px;
+                text-align:center;
+                max-width:420px;
+                box-shadow:0 10px 30px rgba(0,0,0,0.1);
+              }
+
+              h1{
+                margin-top:10px;
+                font-size:24px;
+              }
+
+              p{
+                color:#555;
+              }
+            </style>
+
+            <div class="box">
+              <div style="font-size:48px">💻</div>
+              <h1>Desktop Required</h1>
+              <p>This website is not available on mobile devices.<br>
+              Please open it on a desktop or laptop browser.</p>
+            </div>
+          `);
+
+          throw new Error("Mobile device blocked");
+        }
+      })();
+    </script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

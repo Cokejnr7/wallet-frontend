@@ -6,7 +6,7 @@ import { useMiniRouter } from "../hooks/useMiniRouter";
 const SideBar = ({ pages }) => {
   const [height, setHeight] = useState(0);
   const [isAllNavsVisible, setNavs] = useState(false);
-  const [activePage, setActivePage] = useState(pages.HOME);
+
 
   const onchainList = [
     { id: "onchain-1", img: "/minicard-icons/1000.png", label: "Based: 1,0" },
