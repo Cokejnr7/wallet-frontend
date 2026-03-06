@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dystopian Light */
+@font-face {
+  font-family: "Dystopian";
+  src: url("/fonts/DystopianLight-Regular.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Dystopian Regular */
+@font-face {
+  font-family: "Dystopian";
+  src: url("/fonts/Dystopian-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Dystopian Bold */
+@font-face {
+  font-family: "Dystopian";
+  src: url("/fonts/DystopianBold-Regular.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Dystopian Black */
+@font-face {
+  font-family: "Dystopian";
+  src: url("/fonts/DystopianBlack-Regular.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Inter Variable Regular */
+@font-face {
+  font-family: "InterVariable";
+  src: url("/fonts/InterVariable-Regular.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Inter Variable Italic */
+@font-face {
+  font-family: "InterVariable";
+  src: url("/fonts/InterVariable-Italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.floaty {
+  animation: floaty 1.6s ease-in-out infinite;
+}
+
+/* index.css (or App.css) */
+/* Custom CSS copied from your HTML so Tailwind can stay clean. :contentReference[oaicite:1]{index=1} */
+
+*,
+*::after,
+*::before {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+#root {
+  min-width: 500px;
+  min-height: 100%;
+}
+
+.glass {
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.03)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.glass_modal {
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.06)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.active-inset {
+  box-shadow: 0px 0px 15px 0.5px rgba(255, 255, 255, 0.45) inset;
+}
+
+/* cover fade (top -> transparent -> bottom) */
+.cover-fade {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.25) 35%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+}
+
+/* subtle bottom fade into page background */
+.bottom-fade {
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 12, 0) 0%,
+    rgba(10, 10, 12, 1) 70%
+  );
+}
+
+body {
+  min-width: 500px;
+}
