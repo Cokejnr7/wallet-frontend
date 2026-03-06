@@ -33,7 +33,7 @@ const SelectWalletModal = ({ wallets, setSelectedWallet, setShowModal }) => {
           </span>
         </div>
         {/* wallet list */}
-        <div className="my-5 gap-y-2 flex flex-col lg:min-w-[382px]">
+        <div className="my-5 gap-y-2 flex flex-col min-w-[382px]">
           <div
             className="flex items-center justify-between px-[22px] py-4 bg-[#ffffff1a] rounded-2xl cursor-pointer"
             onClick={() => {
