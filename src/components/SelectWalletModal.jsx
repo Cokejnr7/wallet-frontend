@@ -4,12 +4,7 @@ const SelectWalletModal = ({ wallets, setSelectedWallet, setShowModal }) => {
   const isBaseInstalled = !!window.ethereum?.isCoinbaseWallet;
   const isTrustInstalled = !!window.trustwallet;
 
-  console.log(
-    isMetaInstalled,
-    isPhantomInstalled,
-    isBaseInstalled,
-    isTrustInstalled,
-  );
+
 
   return (
     <div
