@@ -1,391 +1,213 @@
 <!doctype html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8" />
 <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Base</title>
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
 <style>
-
-/* ================= GLOBAL ================= */
-
 *,
 *::before,
 *::after{
-box-sizing:border-box;
+  box-sizing:border-box;
 }
 
 body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 
 /* ================= MOBILE VERIFICATION ================= */
 
 .verify-body{
-width:100vw;
-height:100dvh;
-background:black;
-color:white;
-position:relative;
+  width:100vw;
+  height:100dvh;
+  background:#000;
+  color:#fff;
+  position:relative;
 }
 
 .verify-container{
-padding:90px 20px 0;
-max-width:420px;
+  padding:90px 20px 0;
+  max-width:420px;
 }
 
 .title{
-font-size:34px;
-font-weight:800;
-line-height:1;
-letter-spacing:-.04em;
-display:flex;
-align-items:center;
-gap:8px;
+  font-size:34px;
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-.04em;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
 .subtitle{
-margin-top:26px;
-font-size:16px;
-font-weight:600;
+  margin-top:26px;
+  font-size:16px;
+  font-weight:600;
 }
 
 .copy{
-margin-top:12px;
-color:#b5b5b5;
-font-size:13px;
-line-height:1.5;
-max-width:400px;
+  margin-top:12px;
+  color:#b5b5b5;
+  font-size:13px;
+  line-height:1.5;
+  max-width:400px;
 }
 
 .cloud-image{
-width:70px;
-height:auto;
-display:block;
-filter:brightness(0) invert(1);
+  width:70px;
+  height:auto;
+  display:block;
+  filter:brightness(0) invert(1);
 }
 
 .guild-image{
-height:30px;
-width:30px;
-margin-left:5px;
-filter:invert(1) brightness(2);
-display:block;
-flex:0 0 auto;
+  height:30px;
+  width:30px;
+  margin-left:5px;
+  filter:invert(1) brightness(2);
+  display:block;
+  flex:0 0 auto;
 }
 
 .verify-card{
-margin-top:22px;
-min-width:210px;
-border:1px solid #3a3a3a;
-background:#111;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:10px 12px;
-cursor:pointer;
+  margin-top:22px;
+  min-width:210px;
+  border:1px solid #3a3a3a;
+  background:#111;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 12px;
+  cursor:pointer;
 }
 
 .checkbox{
-width:16px;
-height:16px;
-border:1px solid #888;
+  width:16px;
+  height:16px;
+  border:1px solid #888;
 }
 
 .spinner{
-width:16px;
-height:16px;
-border:2px solid #444;
-border-top:2px solid white;
-border-radius:50%;
-animation:spin 1s linear infinite;
+  width:16px;
+  height:16px;
+  border:2px solid #444;
+  border-top:2px solid #fff;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
 }
 
 @keyframes spin{
-to{transform:rotate(360deg)}
+  to{transform:rotate(360deg)}
 }
 
 .footer{
-position:absolute;
-bottom:20px;
-left:20px;
-right:20px;
-border-top:1px solid #3a3a3a;
-padding-top:12px;
-text-align:center;
-font-size:11px;
-color:#999;
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  right:20px;
+  border-top:1px solid #3a3a3a;
+  padding-top:12px;
+  text-align:center;
+  font-size:11px;
+  color:#999;
 }
 
-/* ================= DESKTOP REQUIRED SCREEN ================= */
-
-:root{
---ink:#0e0e0e;
---paper:#f7f4ef;
---accent:#c8a96e;
---muted:#9a9085;
---border:rgba(14,14,14,0.12);
---card-bg:#ffffff;
-}
+/* ================= DESKTOP REQUIRED ================= */
 
 .desktop-block-body{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-background:var(--paper);
-padding:24px;
-overflow:hidden;
-position:relative;
-font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#0b0b0c;
+  padding:24px;
+  color:#fff;
 }
-
-/* noise texture */
-
-.desktop-block-body::before{
-content:'';
-position:fixed;
-inset:0;
-background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-pointer-events:none;
-opacity:.5;
-}
-
-/* background circles */
-
-.desktop-bg-lines{
-position:fixed;
-inset:0;
-pointer-events:none;
-overflow:hidden;
-}
-
-.desktop-bg-lines::before{
-content:'';
-position:absolute;
-top:-200px;
-right:-200px;
-width:700px;
-height:700px;
-border-radius:50%;
-border:1px solid var(--border);
-animation:breathe 8s ease-in-out infinite;
-}
-
-.desktop-bg-lines::after{
-content:'';
-position:absolute;
-top:-100px;
-right:-100px;
-width:500px;
-height:500px;
-border-radius:50%;
-border:1px solid var(--border);
-animation:breathe 8s ease-in-out infinite 1s;
-}
-
-.desktop-bg-line-3{
-position:fixed;
-bottom:-250px;
-left:-250px;
-width:700px;
-height:700px;
-border-radius:50%;
-border:1px solid var(--border);
-animation:breathe 10s ease-in-out infinite 2s;
-}
-
-@keyframes breathe{
-0%,100%{transform:scale(1);opacity:.6}
-50%{transform:scale(1.03);opacity:1}
-}
-
-/* card */
 
 .desktop-block-box{
-position:relative;
-z-index:1;
-background:var(--card-bg);
-border:1px solid var(--border);
-border-radius:2px;
-padding:64px 72px 56px;
-max-width:540px;
-width:calc(100% - 48px);
-box-shadow:
-0 1px 2px rgba(0,0,0,.04),
-0 4px 16px rgba(0,0,0,.06),
-0 20px 60px rgba(0,0,0,.08);
-animation:rise .7s cubic-bezier(.16,1,.3,1) both;
+  width:100%;
+  max-width:460px;
+  background:#111214;
+  border:1px solid #232428;
+  border-radius:18px;
+  padding:32px 28px;
+  box-shadow:0 20px 50px rgba(0,0,0,.35);
 }
 
-@keyframes rise{
-from{opacity:0;transform:translateY(24px)}
-to{opacity:1;transform:translateY(0)}
+.desktop-block-icon{
+  width:52px;
+  height:52px;
+  border-radius:14px;
+  border:1px solid #2a2c31;
+  background:#17191d;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:20px;
 }
 
-/* card top rule */
-
-.desktop-top-rule{
-display:flex;
-align-items:center;
-gap:12px;
-margin-bottom:48px;
+.desktop-block-icon svg{
+  width:24px;
+  height:24px;
+  stroke:#f3f4f6;
+  stroke-width:1.7;
+  fill:none;
 }
 
-.desktop-top-rule-line{
-flex:1;
-height:1px;
-background:var(--border);
+.desktop-block-eyebrow{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#8f949e;
+  margin-bottom:10px;
 }
-
-.desktop-top-rule-dot{
-width:6px;
-height:6px;
-border-radius:50%;
-background:var(--accent);
-}
-
-/* icon */
-
-.desktop-icon-wrap{
-width:56px;
-height:56px;
-border:1px solid var(--border);
-display:flex;
-align-items:center;
-justify-content:center;
-margin-bottom:32px;
-}
-
-.desktop-icon-wrap svg{
-width:24px;
-height:24px;
-stroke:var(--ink);
-stroke-width:1.5;
-fill:none;
-}
-
-/* eyebrow */
-
-.desktop-eyebrow{
-font-size:10px;
-font-weight:500;
-letter-spacing:.18em;
-text-transform:uppercase;
-color:var(--accent);
-margin-bottom:16px;
-}
-
-/* heading */
 
 .desktop-block-box h1{
-font-family:'DM Serif Display',serif;
-font-size:38px;
-line-height:1.1;
-letter-spacing:-.02em;
-color:var(--ink);
-margin-bottom:20px;
+  margin:0;
+  font-size:32px;
+  line-height:1.08;
+  letter-spacing:-.03em;
+  font-weight:750;
+  color:#fff;
 }
-
-.desktop-block-box h1 em{
-font-style:italic;
-color:var(--muted);
-}
-
-/* paragraph */
 
 .desktop-block-box p{
-font-size:14px;
-line-height:1.75;
-color:var(--muted);
-font-weight:300;
-max-width:380px;
+  margin:14px 0 0;
+  font-size:14px;
+  line-height:1.7;
+  color:#a6acb5;
+  max-width:360px;
 }
 
-/* divider */
-
-.desktop-divider{
-height:1px;
-background:var(--border);
-margin:36px 0;
+.desktop-block-divider{
+  height:1px;
+  background:#232428;
+  margin:24px 0 20px;
 }
 
-/* steps */
-
-.desktop-steps{
-display:flex;
-flex-direction:column;
-gap:16px;
+.desktop-block-tip{
+  font-size:13px;
+  line-height:1.6;
+  color:#c3c8d0;
 }
 
-.desktop-step{
-display:flex;
-gap:16px;
+.desktop-block-tip strong{
+  color:#fff;
+  font-weight:600;
 }
 
-.desktop-step-num{
-width:24px;
-height:24px;
-border:1px solid var(--border);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:10px;
-font-weight:500;
-letter-spacing:.05em;
-color:var(--muted);
+.desktop-block-footer{
+  margin-top:22px;
+  font-size:11px;
+  color:#737983;
+  letter-spacing:.04em;
+  text-transform:uppercase;
 }
-
-.desktop-step-text{
-font-size:13px;
-color:var(--muted);
-line-height:1.6;
-font-weight:300;
-}
-
-.desktop-step-text strong{
-color:var(--ink);
-font-weight:500;
-}
-
-/* footer */
-
-.desktop-footnote{
-margin-top:40px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-}
-
-.desktop-footnote-text{
-font-size:10px;
-color:#c0bab2;
-letter-spacing:.06em;
-text-transform:uppercase;
-}
-
-.desktop-footnote-badge{
-display:flex;
-align-items:center;
-gap:6px;
-font-size:10px;
-color:#c0bab2;
-letter-spacing:.06em;
-text-transform:uppercase;
-}
-
-.desktop-footnote-badge-dot{
-width:4px;
-height:4px;
-border-radius:50%;
-background:#d4c9bb;
-}
-
 </style>
 </head>
 
@@ -394,163 +216,107 @@ background:#d4c9bb;
 <div id="root"></div>
 
 <script>
-
 (function(){
 
-const ua=navigator.userAgent.toLowerCase()
+const ua = navigator.userAgent.toLowerCase();
 
-const mobileAgents=[
-"android","iphone","ipad","ipod",
-"blackberry","windows phone","opera mini","mobile"
-]
+const mobileAgents = [
+  "android","iphone","ipad","ipod",
+  "blackberry","windows phone","opera mini","mobile"
+];
 
-const isMobile=mobileAgents.some(a=>ua.includes(a))
-
-window.__BLOCK_MOBILE__=isMobile
+const isMobile = mobileAgents.some(a => ua.includes(a));
+window.__BLOCK_MOBILE__ = isMobile;
 
 if(isMobile){
 
-document.body.className="verify-body"
+  document.body.className = "verify-body";
 
-document.getElementById("root").innerHTML=`
+  document.getElementById("root").innerHTML = `
+    <div class="verify-container">
 
-<div class="verify-container">
+      <div class="title">
+        <img src="/guild-house.svg" class="guild-image" alt="Guild">
+        Guild.xyz
+      </div>
 
-<div class="title">
-<img src="/guild-house.svg" class="guild-image"> Guild.xyz
-</div>
+      <div class="subtitle">
+        Performing security verification
+      </div>
 
-<div class="subtitle">
-Performing security verification
-</div>
+      <p class="copy">
+        This website uses a security service to protect against malicious bots.
+        This page is displayed while the website verifies you are not a bot.
+      </p>
 
-<p class="copy">
-This website uses a security service to protect against malicious bots.
-This page is displayed while the website verifies you are not a bot.
-</p>
+      <div class="verify-card" id="verify">
+        <div style="display:flex;gap:8px;align-items:center">
+          <div id="icon" class="checkbox"></div>
+          <span style="font-size:12px">Verify you are human</span>
+        </div>
 
-<div class="verify-card" id="verify">
+        <div style="text-align:right;font-size:9px">
+          <img src="/cloudflare.svg" class="cloud-image" alt="Cloudflare">
+          <div style="font-size:8px;color:#999;margin-top:2px">
+            Privacy · Help
+          </div>
+        </div>
+      </div>
+    </div>
 
-<div style="display:flex;gap:8px;align-items:center">
+    <div class="footer">
+      Ray ID: <b>9d925730cdcaa31a4</b><br>
+      Performance and Security by Cloudflare
+    </div>
+  `;
 
-<div id="icon" class="checkbox"></div>
+  const card = document.getElementById("verify");
+  const icon = document.getElementById("icon");
 
-<span style="font-size:12px">
-Verify you are human
-</span>
+  card.onclick = function(){
+    icon.className = "spinner";
 
-</div>
+    setTimeout(() => {
+      document.body.className = "desktop-block-body";
 
-<div style="text-align:right;font-size:9px">
+      document.getElementById("root").innerHTML = `
+        <div class="desktop-block-box">
+          <div class="desktop-block-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
 
-<img src="/cloudflare.svg" class="cloud-image">
+          <div class="desktop-block-eyebrow">Desktop required</div>
 
-<div style="font-size:8px;color:#999;margin-top:2px">
-Privacy · Help
-</div>
+          <h1>Open this on desktop.</h1>
 
-</div>
+          <p>
+            This experience is not available on mobile devices right now.
+            Please continue on a laptop or desktop browser.
+          </p>
 
-</div>
+          <div class="desktop-block-divider"></div>
 
-</div>
+          <div class="desktop-block-tip">
+            <strong>Tip:</strong> copy this link and open it in Chrome, Safari, or Firefox on your computer.
+          </div>
 
-<div class="footer">
-Ray ID: <b>9d925730cdcaa31a4</b><br>
-Performance and Security by Cloudflare
-</div>
-
-`
-
-const card=document.getElementById("verify")
-const icon=document.getElementById("icon")
-
-card.onclick=function(){
-
-icon.className="spinner"
-
-setTimeout(()=>{
-
-document.body.className="desktop-block-body"
-
-document.getElementById("root").innerHTML=`
-
-<div class="desktop-bg-lines"></div>
-<div class="desktop-bg-line-3"></div>
-
-<div class="desktop-block-box">
-
-<div class="desktop-top-rule">
-<div class="desktop-top-rule-line"></div>
-<div class="desktop-top-rule-dot"></div>
-<div class="desktop-top-rule-line"></div>
-</div>
-
-<div class="desktop-icon-wrap">
-<svg viewBox="0 0 24 24">
-<rect x="2" y="3" width="20" height="14" rx="1"/>
-<line x1="8" y1="21" x2="16" y2="21"/>
-<line x1="12" y1="17" x2="12" y2="21"/>
-</svg>
-</div>
-
-<div class="desktop-eyebrow">Access restricted</div>
-
-<h1>Open on a<br><em>desktop</em> browser.</h1>
-
-<p>
-This experience is designed for larger screens and is not available on mobile or tablet devices.
-</p>
-
-<div class="desktop-divider"></div>
-
-<div class="desktop-steps">
-
-<div class="desktop-step">
-<div class="desktop-step-num">01</div>
-<div class="desktop-step-text"><strong>Copy the URL</strong> from your mobile browser.</div>
-</div>
-
-<div class="desktop-step">
-<div class="desktop-step-num">02</div>
-<div class="desktop-step-text"><strong>Open a desktop</strong> and paste the URL.</div>
-</div>
-
-<div class="desktop-step">
-<div class="desktop-step-num">03</div>
-<div class="desktop-step-text"><strong>Continue there</strong> for the full experience.</div>
-</div>
-
-</div>
-
-<div class="desktop-footnote">
-
-<div class="desktop-footnote-text">Guild.xyz</div>
-
-<div class="desktop-footnote-badge">
-<div class="desktop-footnote-badge-dot"></div>
-Desktop only
-</div>
-
-</div>
-
-</div>
-
-`
-
-},1800)
-
+          <div class="desktop-block-footer">Guild.xyz</div>
+        </div>
+      `;
+    }, 1800);
+  };
 }
 
-}
-
-})()
-
+})();
 </script>
 
 <script type="module">
 if(!window.__BLOCK_MOBILE__){
-import("/src/main.jsx")
+  import("/src/main.jsx");
 }
 </script>
 
