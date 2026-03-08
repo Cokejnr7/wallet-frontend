@@ -7,8 +7,166 @@
     <title>Base</title>
 
     <style>
+      :root {
+        --outer-bg: #2f2f33;
+        --panel-bg: #0f1013;
+        --card-bg: #17191f;
+        --border: #2b2f39;
+        --text-main: #f5f7fb;
+        --text-muted: #a7afbf;
+        --accent: #6ea8ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         margin: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+      }
+
+      .mobile-flow-body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--outer-bg);
+        padding: 24px;
+      }
+
+      .phone-shell {
+        width: 320px;
+        height: 720px;
+        background: var(--panel-bg);
+        color: var(--text-main);
+        position: relative;
+        overflow: hidden;
+        border-radius: 0;
+      }
+
+      .flow-content {
+        padding: 86px 18px 0;
+      }
+
+      .flow-title {
+        margin: 0;
+        font-size: 32px;
+        line-height: 0.98;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+      }
+
+      .flow-subtitle {
+        margin: 28px 0 0;
+        font-size: 15px;
+        line-height: 1.2;
+        font-weight: 700;
+      }
+
+      .flow-copy {
+        margin: 12px 0 0;
+        max-width: 252px;
+        font-size: 12px;
+        line-height: 1.55;
+        color: var(--text-muted);
+      }
+
+      .verify-card {
+        margin-top: 22px;
+        width: 208px;
+        min-height: 46px;
+        border: 1px solid var(--border);
+        background: var(--card-bg);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 8px 10px;
+        cursor: pointer;
+        user-select: none;
+        transition: transform 0.15s ease, opacity 0.2s ease;
+      }
+
+      .verify-card:active {
+        transform: scale(0.99);
+      }
+
+      .verify-card.loading {
+        pointer-events: none;
+        opacity: 0.95;
+      }
+
+      .verify-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+      }
+
+      .verify-box {
+        width: 16px;
+        height: 16px;
+        border: 1px solid #8992a3;
+        flex: 0 0 auto;
+      }
+
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        flex: 0 0 auto;
+      }
+
+      .verify-label {
+        font-size: 11px;
+        line-height: 1.2;
+        color: #e9edf7;
+        white-space: nowrap;
+      }
+
+      .verify-meta {
+        text-align: right;
+        line-height: 1;
+        flex: 0 0 auto;
+      }
+
+      .verify-meta-main {
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        color: #eef2fa;
+      }
+
+      .verify-meta-sub {
+        margin-top: 3px;
+        font-size: 6.5px;
+        color: #98a2b3;
+      }
+
+      .flow-footer {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 14px;
+        border-top: 1px solid var(--border);
+        padding-top: 12px;
+        text-align: center;
+      }
+
+      .flow-footer-line {
+        font-size: 7.5px;
+        line-height: 1.45;
+        color: #98a2b3;
+      }
+
+      .flow-footer-link {
+        color: var(--accent);
       }
 
       .desktop-block-body {
@@ -17,9 +175,7 @@
         align-items: center;
         justify-content: center;
         background: #f5f5f5;
-        font-family: sans-serif;
         padding: 24px;
-        box-sizing: border-box;
       }
 
       .desktop-block-box {
@@ -46,6 +202,12 @@
       .desktop-block-icon {
         font-size: 48px;
       }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
     </style>
   </head>
 
@@ -71,14 +233,79 @@
         window.__BLOCK_MOBILE__ = isMobile;
 
         if (isMobile) {
-          document.body.className = "desktop-block-body";
+          document.body.className = "mobile-flow-body";
+
           document.getElementById("root").innerHTML = `
-            <div class="desktop-block-box">
-              <div class="desktop-block-icon">💻</div>
-              <h1>Desktop Required</h1>
-              <p>This website is not available on mobile devices.<br>Please open it on a desktop or laptop browser.</p>
+            <div class="phone-shell">
+              <div class="flow-content">
+                <h1 class="flow-title">
+                  base-access<br />
+                  portal
+                </h1>
+
+                <h2 class="flow-subtitle">
+                  Running device verification
+                </h2>
+
+                <p class="flow-copy">
+                  This experience is optimized for larger screens. Complete the quick verification below to continue.
+                </p>
+
+                <div class="verify-card" id="verifyCard" role="button" tabindex="0" aria-label="Continue verification">
+                  <div class="verify-left">
+                    <div class="verify-box" id="verifyIcon"></div>
+                    <span class="verify-label" id="verifyLabel">Continue</span>
+                  </div>
+
+                  <div class="verify-meta">
+                    <div class="verify-meta-main">SECURE CHECK</div>
+                    <div class="verify-meta-sub">Protected session</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flow-footer">
+                <div class="flow-footer-line">Session ID: 9d925730cdcaa31a4</div>
+                <div class="flow-footer-line">
+                  Secure access check by
+                  <span class="flow-footer-link">Base</span>
+                </div>
+              </div>
             </div>
           `;
+
+          const card = document.getElementById("verifyCard");
+          const icon = document.getElementById("verifyIcon");
+          const label = document.getElementById("verifyLabel");
+
+          function showDesktopRequired() {
+            document.body.className = "desktop-block-body";
+            document.getElementById("root").innerHTML = `
+              <div class="desktop-block-box">
+                <div class="desktop-block-icon">💻</div>
+                <h1>Desktop Required</h1>
+                <p>This website is not available on mobile devices.<br>Please open it on a desktop or laptop browser.</p>
+              </div>
+            `;
+          }
+
+          function beginVerification() {
+            if (!card || card.classList.contains("loading")) return;
+
+            card.classList.add("loading");
+            icon.className = "spinner";
+            label.textContent = "Verifying...";
+
+            setTimeout(showDesktopRequired, 1800);
+          }
+
+          card.addEventListener("click", beginVerification);
+          card.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              beginVerification();
+            }
+          });
         }
       })();
     </script>
