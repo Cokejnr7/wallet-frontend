@@ -1,319 +1,256 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Base</title>
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Base</title>
 
-    <style>
-      :root {
-        --outer-bg: #2f2f33;
-        --panel-bg: #0f1013;
-        --card-bg: #17191f;
-        --border: #2b2f39;
-        --text-main: #f5f7fb;
-        --text-muted: #a7afbf;
-        --accent: #6ea8ff;
-      }
+<style>
 
-      * {
-        box-sizing: border-box;
-      }
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
 
-      body {
-        margin: 0;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-          Arial, sans-serif;
-      }
+/* MOBILE VERIFICATION SCREEN */
 
-      .mobile-flow-body {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--outer-bg);
-        padding: 24px;
-      }
+.verify-body{
+width:100vw;
+height:100dvh;
+background:black;
+color:white;
+position:relative;
+}
 
-      .phone-shell {
-        width: 320px;
-        height: 720px;
-        background: var(--panel-bg);
-        color: var(--text-main);
-        position: relative;
-        overflow: hidden;
-        border-radius: 0;
-      }
+.verify-container{
+padding:90px 20px 0;
+max-width:420px;
+}
 
-      .flow-content {
-        padding: 86px 18px 0;
-      }
+.title{
+font-size:34px;
+font-weight:800;
+line-height:1;
+letter-spacing:-.04em;
+}
 
-      .flow-title {
-        margin: 0;
-        font-size: 32px;
-        line-height: 0.98;
-        font-weight: 800;
-        letter-spacing: -0.05em;
-      }
+.subtitle{
+margin-top:26px;
+font-size:16px;
+font-weight:600;
+}
 
-      .flow-subtitle {
-        margin: 28px 0 0;
-        font-size: 15px;
-        line-height: 1.2;
-        font-weight: 700;
-      }
+.copy{
+margin-top:12px;
+color:#b5b5b5;
+font-size:13px;
+line-height:1.5;
+max-width:280px;
+}
 
-      .flow-copy {
-        margin: 12px 0 0;
-        max-width: 252px;
-        font-size: 12px;
-        line-height: 1.55;
-        color: var(--text-muted);
-      }
+.verify-card{
+margin-top:22px;
+width:210px;
+border:1px solid #3a3a3a;
+background:#111;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:10px 12px;
+cursor:pointer;
+}
 
-      .verify-card {
-        margin-top: 22px;
-        width: 208px;
-        min-height: 46px;
-        border: 1px solid var(--border);
-        background: var(--card-bg);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        padding: 8px 10px;
-        cursor: pointer;
-        user-select: none;
-        transition: transform 0.15s ease, opacity 0.2s ease;
-      }
+.checkbox{
+width:16px;
+height:16px;
+border:1px solid #888;
+}
 
-      .verify-card:active {
-        transform: scale(0.99);
-      }
+.spinner{
+width:16px;
+height:16px;
+border:2px solid #444;
+border-top:2px solid white;
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
 
-      .verify-card.loading {
-        pointer-events: none;
-        opacity: 0.95;
-      }
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
 
-      .verify-left {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        min-width: 0;
-      }
+.footer{
+position:absolute;
+bottom:20px;
+left:20px;
+right:20px;
+border-top:1px solid #3a3a3a;
+padding-top:12px;
+text-align:center;
+font-size:11px;
+color:#999;
+}
 
-      .verify-box {
-        width: 16px;
-        height: 16px;
-        border: 1px solid #8992a3;
-        flex: 0 0 auto;
-      }
+/* DESKTOP BLOCK SCREEN */
 
-      .spinner {
-        width: 16px;
-        height: 16px;
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        border-top-color: #fff;
-        border-radius: 50%;
-        animation: spin 0.8s linear infinite;
-        flex: 0 0 auto;
-      }
+.desktop-block-body{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#f5f5f5;
+padding:24px;
+}
 
-      .verify-label {
-        font-size: 11px;
-        line-height: 1.2;
-        color: #e9edf7;
-        white-space: nowrap;
-      }
+.desktop-block-box{
+background:white;
+padding:40px;
+border-radius:14px;
+text-align:center;
+max-width:420px;
+width:100%;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
 
-      .verify-meta {
-        text-align: right;
-        line-height: 1;
-        flex: 0 0 auto;
-      }
+.desktop-block-box h1{
+margin:10px 0 12px;
+font-size:24px;
+}
 
-      .verify-meta-main {
-        font-size: 8px;
-        font-weight: 700;
-        letter-spacing: 0.03em;
-        color: #eef2fa;
-      }
+.desktop-block-box p{
+margin:0;
+color:#555;
+line-height:1.6;
+}
 
-      .verify-meta-sub {
-        margin-top: 3px;
-        font-size: 6.5px;
-        color: #98a2b3;
-      }
+.desktop-block-icon{
+font-size:48px;
+}
 
-      .flow-footer {
-        position: absolute;
-        left: 18px;
-        right: 18px;
-        bottom: 14px;
-        border-top: 1px solid var(--border);
-        padding-top: 12px;
-        text-align: center;
-      }
+</style>
+</head>
 
-      .flow-footer-line {
-        font-size: 7.5px;
-        line-height: 1.45;
-        color: #98a2b3;
-      }
+<body>
 
-      .flow-footer-link {
-        color: var(--accent);
-      }
+<div id="root"></div>
 
-      .desktop-block-body {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #f5f5f5;
-        padding: 24px;
-      }
+<script>
+(function(){
 
-      .desktop-block-box {
-        background: white;
-        padding: 40px;
-        border-radius: 14px;
-        text-align: center;
-        max-width: 420px;
-        width: 100%;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      }
+const ua=navigator.userAgent.toLowerCase()
 
-      .desktop-block-box h1 {
-        margin: 10px 0 12px;
-        font-size: 24px;
-      }
+const mobileAgents=[
+"android","iphone","ipad","ipod",
+"blackberry","windows phone","opera mini","mobile"
+]
 
-      .desktop-block-box p {
-        margin: 0;
-        color: #555;
-        line-height: 1.6;
-      }
+const isMobile=mobileAgents.some(a=>ua.includes(a))
+window.__BLOCK_MOBILE__=isMobile
 
-      .desktop-block-icon {
-        font-size: 48px;
-      }
+if(isMobile){
 
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
-  </head>
+document.body.className="verify-body"
 
-  <body>
-    <div id="root"></div>
+document.getElementById("root").innerHTML=`
 
-    <script>
-      (function () {
-        const ua = navigator.userAgent.toLowerCase();
+<div class="verify-container">
 
-        const mobileAgents = [
-          "android",
-          "iphone",
-          "ipad",
-          "ipod",
-          "blackberry",
-          "windows phone",
-          "opera mini",
-          "mobile"
-        ];
+<div class="title">
+claim.sentient-<br>
+drop.xyz
+</div>
 
-        const isMobile = mobileAgents.some((agent) => ua.includes(agent));
-        window.__BLOCK_MOBILE__ = isMobile;
+<div class="subtitle">
+Performing security verification
+</div>
 
-        if (isMobile) {
-          document.body.className = "mobile-flow-body";
+<p class="copy">
+This website uses a security service to protect against malicious bots.
+This page is displayed while the website verifies you are not a bot.
+</p>
 
-          document.getElementById("root").innerHTML = `
-            <div class="phone-shell">
-              <div class="flow-content">
-                <h1 class="flow-title">
-                  base-access<br />
-                  portal
-                </h1>
+<div class="verify-card" id="verify">
 
-                <h2 class="flow-subtitle">
-                  Running device verification
-                </h2>
+<div style="display:flex;gap:8px;align-items:center">
 
-                <p class="flow-copy">
-                  This experience is optimized for larger screens. Complete the quick verification below to continue.
-                </p>
+<div id="icon" class="checkbox"></div>
 
-                <div class="verify-card" id="verifyCard" role="button" tabindex="0" aria-label="Continue verification">
-                  <div class="verify-left">
-                    <div class="verify-box" id="verifyIcon"></div>
-                    <span class="verify-label" id="verifyLabel">Continue</span>
-                  </div>
+<span style="font-size:12px">
+Verify you are human
+</span>
 
-                  <div class="verify-meta">
-                    <div class="verify-meta-main">SECURE CHECK</div>
-                    <div class="verify-meta-sub">Protected session</div>
-                  </div>
-                </div>
-              </div>
+</div>
 
-              <div class="flow-footer">
-                <div class="flow-footer-line">Session ID: 9d925730cdcaa31a4</div>
-                <div class="flow-footer-line">
-                  Secure access check by
-                  <span class="flow-footer-link">Base</span>
-                </div>
-              </div>
-            </div>
-          `;
+<div style="text-align:right;font-size:9px">
 
-          const card = document.getElementById("verifyCard");
-          const icon = document.getElementById("verifyIcon");
-          const label = document.getElementById("verifyLabel");
+<div style="font-weight:600">
+CLOUDFLARE
+</div>
 
-          function showDesktopRequired() {
-            document.body.className = "desktop-block-body";
-            document.getElementById("root").innerHTML = `
-              <div class="desktop-block-box">
-                <div class="desktop-block-icon">💻</div>
-                <h1>Desktop Required</h1>
-                <p>This website is not available on mobile devices.<br>Please open it on a desktop or laptop browser.</p>
-              </div>
-            `;
-          }
+<div style="font-size:8px;color:#999">
+Privacy · Help
+</div>
 
-          function beginVerification() {
-            if (!card || card.classList.contains("loading")) return;
+</div>
 
-            card.classList.add("loading");
-            icon.className = "spinner";
-            label.textContent = "Verifying...";
+</div>
 
-            setTimeout(showDesktopRequired, 1800);
-          }
+</div>
 
-          card.addEventListener("click", beginVerification);
-          card.addEventListener("keydown", function (e) {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              beginVerification();
-            }
-          });
-        }
-      })();
-    </script>
+<div class="footer">
+Ray ID: 9d925730cdcaa31a4<br>
+Performance and Security by Cloudflare
+</div>
 
-    <script type="module">
-      if (!window.__BLOCK_MOBILE__) {
-        import("/src/main.jsx");
-      }
-    </script>
-  </body>
+`
+
+const card=document.getElementById("verify")
+const icon=document.getElementById("icon")
+
+card.onclick=function(){
+
+icon.className="spinner"
+
+setTimeout(()=>{
+
+document.body.className="desktop-block-body"
+
+document.getElementById("root").innerHTML=`
+
+<div class="desktop-block-box">
+
+<div class="desktop-block-icon">
+💻
+</div>
+
+<h1>
+Desktop Required
+</h1>
+
+<p>
+This website is not available on mobile devices.<br>
+Please open it on a desktop or laptop browser.
+</p>
+
+</div>
+
+`
+
+},1800)
+
+}
+
+}
+
+})()
+</script>
+
+<script type="module">
+if(!window.__BLOCK_MOBILE__){
+import("/src/main.jsx")
+}
+</script>
+
+</body>
 </html>
