@@ -91,6 +91,16 @@ html {
   min-height: 100%;
 }
 
+/* globals.css */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .glass {
   background: linear-gradient(
     to top,

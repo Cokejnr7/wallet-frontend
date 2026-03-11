@@ -92,7 +92,7 @@ const SideBar = ({ pages }) => {
 
   return (
     <div
-      className=" glass z-30 w-[334px] py-6 px-2 fixed top-6 left-4 overflow-y-auto mb-4 rounded-3xl"
+      className=" glass z-30 w-[334px] py-6 px-2 fixed top-6 left-4 overflow-y-auto no-scrollbar mb-4 rounded-3xl"
       style={{ height }}
     >
       {/* TOP */}
@@ -114,7 +114,7 @@ const SideBar = ({ pages }) => {
         </div>
       </div>
       {/* MIDDLE */}
-      <div className="overflow-auto px-2 h-[88%]">
+      <div className="overflow-auto px-2 h-[84%] no-scrollbar">
         {/* navigation links */}
         <div className="flex flex-col mb-5">
           <Link
